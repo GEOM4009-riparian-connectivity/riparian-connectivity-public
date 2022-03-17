@@ -83,7 +83,7 @@ The statistical aspect of this is still very much a work in progress - see below
 
 ## On-going Development
 
-The draft script published as release v0.1.0 uses a specific `riparian_stats_testing()` function that matches the `full_workflow-test.ipynb` notebook found in this repo. This was done in order to evaluate the script's ability to output the same results as that notebook. Once the script has passed through GEOM 4009's Progress Report #3 milestone, a v0.2.0 release will be made that includes a draft of the actual `riparian_stats()` function under development.
+The draft script published as release v0.1.1 uses a specific `riparian_stats_testing()` function that matches the `full_workflow-test.ipynb` notebook found in this repo. This was done in order to evaluate the script's ability to output the same results as that notebook. Once the script has passed through GEOM 4009's Progress Report #3 milestone, a v0.2.0 release will be made that includes a draft of the actual `riparian_stats()` function under development.
 
 
 
