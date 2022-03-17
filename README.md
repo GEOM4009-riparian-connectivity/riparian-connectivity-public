@@ -1,9 +1,5 @@
 # GEOM 4009 - Riparian Connectivity
 
-README to do:
-- add direct link 
-
-
 Welcome to our GEOM 4009 Riparian Connectivity project! This is a student-led project at Carleton University in Ottawa, ON.
 
 ## Description
