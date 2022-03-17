@@ -4,7 +4,7 @@ Welcome to our GEOM 4009 Riparian Connectivity project! This is a student-led pr
 
 ## Description
 
-Our Riparian-Connectivity Python package intends to quantify vegetation connectivity within the riparian buffer of a watershed's surface waters. The current release is our initial draft release (v0.1.0) and while it has been tested on the "sample1" dataset found in the `testing/sample_data` directory, it's possible there will be bugs and/or long computation times if run on other datasets.
+Our Riparian-Connectivity Python package intends to quantify vegetation connectivity within the riparian buffer of a watershed's surface waters. The current release is our initial draft release (v0.1.1) and while it has been tested on the "sample1" dataset found in the `testing/sample_data` directory, it's possible there will be bugs and/or long computation times if run on other datasets.
 
 This package is a work in progress, as is the documentation. Please bear with us as we develop it further.
 
