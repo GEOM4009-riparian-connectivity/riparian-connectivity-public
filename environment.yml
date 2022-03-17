@@ -6,11 +6,9 @@ channels:
 dependencies:
   - python
   - geopandas
-  - jupyterlab
   - matplotlib
   - matplotlib-scalebar
   - numpy
   - pandas
   - rasterio
   - rioxarray
-  - spyder
