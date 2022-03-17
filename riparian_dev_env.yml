@@ -1,0 +1,17 @@
+name: riparian_dev
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python
+  - geopandas
+  - jupyterlab
+  - matplotlib
+  - matplotlib-scalebar
+  - numpy
+  - pandas
+  - rasterio
+  - rioxarray
+  - spyder
+  - pip
