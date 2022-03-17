@@ -18,7 +18,7 @@ Just [click here](https://github.com/GEOM4009-riparian-connectivity/riparian-con
 
 Riparian-Connectivity is best run within the `riparian_dev` conda environment, as defined in the `riparian_dev_env.yml` file.
 
->Note: If you're not familiar with conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes conda, multiple other applications, and hundreds of pre-installed packages. Miniconda on the other hand, is bare minimum installation that only includes conda, Python, a minimal amount of useful packages. When an environment is created, conda installs only those packages that are needed - this makes Miniconda the best option if you want a simple and lightweight installation.
+>Note: If you're not familiar with conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes conda, multiple other applications, and hundreds of pre-installed packages. Miniconda on the other hand, is bare minimum installation that only includes conda, Python, and a minimal amount of useful packages. When an environment is created, conda installs only those packages that are needed - this makes Miniconda the best option if you want a simple and lightweight installation.
 
 
 The `riparian_dev` conda environment can be installed at the command line by navigating to your local copy of the repository and then running the following command:
