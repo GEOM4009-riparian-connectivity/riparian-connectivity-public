@@ -27,7 +27,7 @@ The `riparian_dev` conda environment can be installed at the command line by nav
 conda env create -f riparian_dev_env.yml
 ```
 
-If conda stalls on the `Solving environment:` step you might want to try [Mamba](https://mamba.readthedocs.io/en/latest/index.html) instead. Mamba is fully compatible with conda and might be faster way to install the environment. It's as simple as running the following two commands from your base conda environment.
+If conda stalls on the `Solving environment:` step you might want to try [Mamba](https://mamba.readthedocs.io/en/latest/index.html) instead. Mamba is fully compatible with conda and might be a faster way to install the environment. It's as simple as running the following two commands from your base conda environment.
 
 Install mamba:
 ```
