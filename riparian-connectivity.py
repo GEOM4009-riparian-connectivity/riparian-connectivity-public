@@ -1,22 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@File       :   script-framework.py
-@Time       :   2022/02/15 13:34:51
-@Author(s)  :   John Foster 
-@Desc       :   A basic framework of the script. 
-"""
 
-"""
-Detailed description:
-    A rough framework for the riparian connectivity script. Each section contains
-    related process that need to occur. Group members are assigned section to facilitate
-    a division of labour but it's hoped that all members will provide assistance or ask 
-    for assistance as needed.
+File docstring to be completed
 
-Notes:
-    - Please use the Black code formatter https://github.com/psf/black
-    - Update the metadata above as needed
+
+
 """
 
 # %% Import packages
@@ -80,97 +69,90 @@ def load_data_ui():
         Returns a dictionary with each of the data objects as the value of an
         appropriately named key.
     """
-    print("\n--------------------------------------------------------------")
-    print("Please enter filepaths to required data. Enter 'q' or 'quit' to quit.")
+    print("\nRiparian Connectivity v0.1")
     print("------------------------------------------------------------")
+    print("Please enter required information or 'q' or 'quit' to quit.")
+    print("------------------------------------------------------------")
+
+    # Get the watershed name
+    loaded = False
+    while loaded == False:
+        watershed_name = user_input("Watershed name: ")
+        loaded = True
 
     # Read the watershed boundary vector data; only keep geometry, and dissolve
     loaded = False
     while loaded == False:
-        input_path = user_input(
-            "\nPlease enter the path to the watershed's boundary vector file (polygon):"
-        )
+        input_path = user_input("\nPath to the watershed polygon file: ")
         try:
             watershed_path = os.path.join(*Path(input_path).parts)
+            print("\nReading file...", end="")
             watershed_gdf = gpd.read_file(watershed_path)
             watershed_gdf = watershed_gdf[["geometry"]].dissolve()
-            print("\nWatershed boundary vector data loaded successfully.")
+            print("watershed polygon file loaded successfully.")
             loaded = True
         except:
-            print(
-                "\nError: Watershed boundary vector data not loaded successfully.\n",
-                "Please enter a path to a valid file or enter 'q' or 'quit' to quit.",
-            )
+            print("Error: Watershed polygon file not loaded successfully.\n")
+            print("Please enter a path to a valid file or enter 'q' or 'quit' to quit.")
 
-    # Read the water bodies vector data, drop all columns except geometry, and dissolve
+    # Read the water bodies vector data; only keep geometry, and dissolve
     loaded = False
     while loaded == False:
-        input_path = user_input(
-            "\nPlease enter the path to the water bodies' vector file (polygons):"
-        )
+        input_path = user_input("\nPath to the water bodies polygon file: ")
         try:
             waterbodies_path = os.path.join(*Path(input_path).parts)
+            print("\nReading file...", end="")
             waterbodies_gdf = gpd.read_file(waterbodies_path)
             waterbodies_gdf = waterbodies_gdf[["geometry"]].dissolve()
-            print("\nWater bodies vector data loaded successfully.")
+            print("Water bodies polygon file loaded successfully.")
             loaded = True
         except:
-            print(
-                "\nError: Water bodies vector data not loaded successfully.\n",
-                "Please enter a path to a valid file or enter 'q' or 'quit' to quit.",
-            )
+            print("Error: Water bodies polygon file not loaded successfully.\n")
+            print("Please enter a path to a valid file or enter 'q' or 'quit' to quit.")
 
-    # Read the water courses vector data, drop all columns except geometry, and dissolve
+    # Read the water courses vector data; only keep geometry, and dissolve
     loaded = False
     while loaded == False:
-        input_path = user_input(
-            "\nPlease enter the path to the water courses' vector file (lines):"
-        )
+        input_path = user_input("\nPath to the water courses line file: ")
         try:
             watercourses_path = os.path.join(*Path(input_path).parts)
+            print("\nReading file...", end="")
             watercourses_gdf = gpd.read_file(watercourses_path)
             watercourses_gdf = watercourses_gdf[["geometry"]].dissolve()
-            print("\nWater courses vector data loaded successfully.")
+            print("Water courses line file loaded successfully.")
             loaded = True
         except:
-            print(
-                "\nError: Water courses vector data not loaded successfully.\n",
-                "Please enter a path to a valid file or enter 'q' or 'quit' to quit.",
-            )
+            print("Error: Water courses line file not loaded successfully.\n")
+            print("Please enter a path to a valid file or enter 'q' or 'quit' to quit.")
 
     # Read the multispectral watershed imagery file
     loaded = False
     while loaded == False:
-        input_path = user_input(
-            "\nPlease enter the path to the multispectral watershed imagery file:"
-        )
+        input_path = user_input("\nPath to the multispectral imagery file: ")
         try:
             imagery_path = os.path.join(*Path(input_path).parts)
+            print("\nReading file...", end="")
             imagery_da = rxr.open_rasterio(filename=imagery_path)
             imagery_crs = imagery_da.rio.crs
             if imagery_crs != None:
-                print("\nWatershed imagery data loaded successfully.")
+                print("Multispectral imagery file loaded successfully.")
                 loaded = True
             else:
-                print(
-                    "\nUnable to determine coordinate reference system of the",
-                    "imagery data. The imagery file must have a valid CRS.",
-                )
+                print("Error: Unable to determine coordinate reference system.\n")
+                print("The imagery file must have a valid CRS.")
+
                 raise Exception
         except:
-            print(
-                "\nError: Watershed imagery data not loaded successfully.\n",
-                "Please enter a path to a valid file or enter 'q' or 'quit' to quit.",
-            )
+            print("\nError: Multispectral imagery file not loaded successfully.\n")
+            print("Please enter a path to a valid file or enter 'q' or 'quit' to quit.")
 
     # Input the buffer width
     loaded = False
     while loaded == False:
-        buffer_width = user_input("\nPlease enter the riparian buffer width in meters:")
+        buffer_width = user_input("\nRiparian buffer width in meters: ")
         try:
             buffer_width = float(buffer_width)
             if buffer_width > 0:
-                print("\nBuffer width loaded successfully.\n")
                 loaded = True
             else:
                 raise Exception
@@ -179,6 +161,7 @@ def load_data_ui():
 
     # Return the results as a dictionary
     data_dict = {
+        "watershed_name": watershed_name,
         "watershed": watershed_gdf,
         "waterbodies": waterbodies_gdf,
         "watercourses": watercourses_gdf,
@@ -191,7 +174,7 @@ def load_data_ui():
 
     # FOR DEBUGGING ------------------------------------------------------
     # Write intermediate data to file for debugging
-
+    """
     warnings.filterwarnings("ignore", category=FutureWarning)
 
     print("Exporting intermediate data...", end="")
@@ -217,7 +200,7 @@ def load_data_ui():
 
     print("done")
     # ---------------------------------------------------------------------
-
+    """
     return data_dict
 
 
@@ -363,7 +346,7 @@ def create_binary_riparian_da(ndvi_da):
     plt.savefig("4_NDVI_histogram.png")
     fig_full_path = os.path.join(os.getcwd(), fig_path)
     print(
-        "Histogram of the riparian buffer NDVI values has been save here:"
+        "Histogram of the riparian buffer NDVI values has been saved here:"
         f"{fig_full_path}\n"
         "Please refer to it as an aid to determine an apporpriate NDVI threshold."
     )
@@ -385,6 +368,7 @@ def create_binary_riparian_da(ndvi_da):
     # Specify a threshold and create a binary riparian vegetation DataArray
     # ------------------------------------------------------------------------
 
+    print("Creating a binary riparian vegetation DataArray...", end="")
     # Boolean vegetation DataArray
     veg_da = ndvi_da > threshold
 
@@ -400,9 +384,13 @@ def create_binary_riparian_da(ndvi_da):
     # Create a riparian vegetation/not vegeation DataArray
     riparian_da = veg_da - not_veg_da
 
+    print("done\n")
+
     # FOR DEBUGGING ------------------------------------------------------
     # Write intermediate data to file for debugging
+    print("Exporting intermediate data...", end="")
     riparian_da.rio.to_raster("4_riparian_da.tiff")
+    print("done\n")
     # --------------------------------------------------------------------
     return riparian_da
 
@@ -470,13 +458,15 @@ def extract_raster_features(da, n_jobs=-1):
     riparian_gdf = gpd.GeoDataFrame(vals, geometry=geoms, crs=raster_crs)
 
     # Print completed log message
-    print("completed")
+    print("completed\n")
 
     # FOR DEBUGGING ------------------------------------------------------
     # Write intermediate data to file for debugging
+    print("Exporting intermediate data...", end="")
     riparian_gdf.to_file(
         filename="intermediate_outputs.gpkg", layer="6_riparian_gdf", driver="GPKG"
     )
+    print("done\n")
     # ---------------------------------------------------------------------
 
     return riparian_gdf
@@ -491,7 +481,7 @@ To do
 """
 
 
-def riparian_stats(gdf):
+def riparian_stats(watershed_name, riparian_gdf, watershed_gdf):
     """
     Generate statistics related to the riparian zones.
 
@@ -526,28 +516,29 @@ def riparian_stats(gdf):
     print("Calculating riparian statistics...", end="")
 
     # Subset by vegetation and not-vegetation features
-    veg_gdf = gdf.loc[gdf["value"] == 1]
-    not_veg_gdf = gdf.loc[gdf["value"] == 255]
+    veg_gdf = riparian_gdf.loc[riparian_gdf["value"] == 1]
+    not_veg_gdf = riparian_gdf.loc[riparian_gdf["value"] == 255]
 
     # Dissolve all riparian features into unique contiguous features
     riparian_gdf = (
-        gdf.loc[(gdf["value"] == 1) | (gdf["value"] == 255)]
+        riparian_gdf.loc[(riparian_gdf["value"] == 1) | (riparian_gdf["value"] == 255)]
         .dissolve()
         .explode(ignore_index=True)
     )
 
     # Area of features
-    veg_area = veg_gdf["geometry"].area.sum()
-    not_veg_area = not_veg_gdf["geometry"].area.sum()
-    riparian_area = riparian_gdf["geometry"].area.sum()
+    veg_area = veg_gdf["geometry"].area.sum() / 1_000_000
+    not_veg_area = not_veg_gdf["geometry"].area.sum() / 1_000_000
+    riparian_area = riparian_gdf["geometry"].area.sum() / 1_000_000
+    watershed_area = watershed_gdf["geometry"].area.sum() / 1_000_000
 
     # Mean patch size of not-vegetation features
-    not_veg_mean_size = not_veg_gdf["geometry"].area.mean()
+    not_veg_mean_size = not_veg_gdf["geometry"].area.mean() / 1_000_000
 
     # Perimeter of features
-    veg_perimeter = veg_gdf["geometry"].length.sum()  # Not used yet
-    not_veg_perimeter = not_veg_gdf["geometry"].length.sum()  # Not used yet
-    riparian_perimeter = riparian_gdf["geometry"].length.sum()  # Not used yet
+    veg_perimeter = veg_gdf["geometry"].length.sum() / 1000
+    not_veg_perimeter = not_veg_gdf["geometry"].length.sum() / 1000
+    riparian_perimeter = riparian_gdf["geometry"].length.sum() / 1000
 
     # Number of features
     veg_n_feature = len(veg_gdf)
@@ -555,23 +546,26 @@ def riparian_stats(gdf):
     riparian_n_feature = len(riparian_gdf)  # Not used yet
 
     # Coverage of total riparian area
-    veg_coverage = veg_area / riparian_area
-    not_veg_coverage = not_veg_area / riparian_area
+    veg_coverage = veg_area / riparian_area * 100
+    not_veg_coverage = not_veg_area / riparian_area * 100
 
     data = {
-        "Watershed name": [None],
-        "Watershed area": [None],
-        "Riparian area": [riparian_area],
-        "Vegetated riparian area": [veg_area],
-        "Non-vegetated riparian area": [not_veg_area],
-        "Vegetated riparian coverage": [veg_coverage],
-        "Mean non-vegetated patch size": [not_veg_mean_size],
-        "non-vegetated riparian coverage": [not_veg_coverage],
+        "Watershed name": [watershed_name],
+        "Watershed area (km2)": [watershed_area],
+        "Riparian area (km2)": [riparian_area],
+        "Vegetated riparian area (km2)": [veg_area],
+        "Non-vegetated riparian area (km2)": [not_veg_area],
+        "Vegetated riparian coverage (%)": [veg_coverage],
+        "Mean non-vegetated patch size (km2)": [not_veg_mean_size],
+        "non-vegetated riparian coverage (%)": [not_veg_coverage],
         "n vegetated riparian features": [veg_n_feature],
         "n non-vegetated riparian features": [not_veg_n_feature],
+        "Perimeter of vegetation features (km)": [veg_perimeter],
+        "Perimeter of not-vegetation features (km)": [not_veg_perimeter],
+        "Perimeter of riparian buffer (km)": [riparian_perimeter],
     }
 
-    df = pd.DataFrame(data=data)
+    df = pd.DataFrame.from_dict(data=data, orient="index")
 
     # Print completed log message
 
@@ -601,7 +595,7 @@ def riparian_stats(gdf):
 # %% Riparian stats function for testing
 
 
-def riparian_stats_testing(gdf):
+def riparian_stats_testing(watershed_name, riparian_gdf, watershed_gdf):
     """
     FOR DEVELOPMENT ONLY
 
@@ -614,12 +608,12 @@ def riparian_stats_testing(gdf):
     print("Calculating riparian statistics...", end="")
 
     # Subset by vegetation and not-vegetation features
-    veg_gdf = gdf.loc[gdf["value"] == 1]
-    not_veg_gdf = gdf.loc[gdf["value"] == 255]
+    veg_gdf = riparian_gdf.loc[riparian_gdf["value"] == 1]
+    not_veg_gdf = riparian_gdf.loc[riparian_gdf["value"] == 255]
 
     # Dissolve all riparian features into unique contiguous features
     riparian_gdf = (
-        gdf.loc[(gdf["value"] == 1) | (gdf["value"] == 0)]
+        riparian_gdf.loc[(riparian_gdf["value"] == 1) | (riparian_gdf["value"] == 255)]
         .dissolve()
         .explode(ignore_index=True)
     )
@@ -722,7 +716,11 @@ def main():
     riparian_gdf = extract_raster_features(riparian_da)
 
     # 6) Function to calculate Riparian Connectivity Statistics - Taji / John
-    stats_df = riparian_stats_testing(gdf=riparian_gdf)
+    stats_df = riparian_stats(
+        watershed_name=data_dict["watershed_name"],
+        riparian_gdf=riparian_gdf,
+        watershed_gdf=data_dict["watershed"],
+    )
     print(stats_df)
 
     # 7) Function to produce a report - John & Haley

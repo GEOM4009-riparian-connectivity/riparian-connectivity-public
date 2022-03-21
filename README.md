@@ -4,7 +4,7 @@ Welcome to our GEOM 4009 Riparian Connectivity project! This is a student-led pr
 
 ## Description
 
-Our Riparian-Connectivity Python package intends to quantify vegetation connectivity within the riparian buffer of a watershed's surface waters. The current release is our initial draft release (v0.1.1) and while it has been tested on the "sample1" dataset found in the `testing/sample_data` directory, it's possible there will be bugs and/or long computation times if run on other datasets.
+Our Riparian-Connectivity Python package intends to quantify vegetation connectivity within the riparian buffer of a watershed's surface waters. The current release is our draft release (v0.2.0) and while it has been tested on the "sample1" dataset found in the `testing/sample_data` directory, and the Petite-Nation river watershed dataset (not found on the repo due to its size) it's possible there will be bugs and/or long computation times if run on other datasets.
 
 This package is a work in progress, as is the documentation. Please bear with us as we develop it further.
 
@@ -16,15 +16,15 @@ Just [click here](https://github.com/GEOM4009-riparian-connectivity/riparian-con
 
 ### Environment
 
-Riparian-Connectivity is best run within the `riparian_dev` conda environment, as defined in the `riparian_dev_env.yml` file.
+Riparian-Connectivity is best run within the `riparian_connect` conda environment, as defined in the `environment.yml` file.
 
 >Note: If you're not familiar with conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes conda, multiple other applications, and hundreds of pre-installed packages. Miniconda on the other hand, is bare minimum installation that only includes conda, Python, and a minimal amount of useful packages. When an environment is created, conda installs only those packages that are needed - this makes Miniconda the best option if you want a simple and lightweight installation.
 
 
-The `riparian_dev` conda environment can be installed at the command line by navigating to your local copy of the repository and then running the following command:
+The `riparian_connect` conda environment can be installed at the command line by navigating to the directory you downloaded your copy of this repository to and then running the following command:
 
 ```
-conda env create -f riparian_dev_env.yml
+conda env create -f environment.yml
 ```
 
 If conda stalls on the `Solving environment:` step you might want to try [Mamba](https://mamba.readthedocs.io/en/latest/index.html) instead. Mamba is fully compatible with conda and might be a faster way to install the environment. It's as simple as running the following two commands from your base conda environment.
@@ -36,7 +36,7 @@ conda install mamba -n base -c conda-forge
 
 Create the environment:
 ```
-mamba env create -f riparian_dev_env.yml
+mamba env create -f environment.yml
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ Once you have downloaded the package and installed the environment, navigate to 
 Activate the environment:
 
 ```
-conda activate riparian_dev
+conda activate riparian_connect
 ```
 
 Run the script:
@@ -83,8 +83,9 @@ The statistical aspect of this is still very much a work in progress - see below
 
 ## On-going Development
 
-The draft script published as release v0.1.1 uses a specific `riparian_stats_testing()` function that matches the `full_workflow-test.ipynb` notebook found in this repo. This was done in order to evaluate the script's ability to output the same results as that notebook. Once the script has passed through GEOM 4009's Progress Report #3 milestone, a v0.2.0 release will be made that includes a draft of the actual `riparian_stats()` function under development.
+This project is ongoing and severl more draft releases are planned as the full functionality and bugs get sorted out.
 
+The current working version of the script will output intermediate files into the same directory containing the script.
 
 
 ### Testing Notebooks
