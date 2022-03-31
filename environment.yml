@@ -14,4 +14,4 @@ dependencies:
   - rasterio
   - rioxarray
   - shapely
-  - skimage
+  - scikit-image

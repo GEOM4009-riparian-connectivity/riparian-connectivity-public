@@ -36,7 +36,7 @@ Riparian-Connectivity depends on a number of external Python modules:
 - rasterio
 - rioxarray
 - shapely
-- skimage
+- scikit-image
 
 To manage these dependencies, Riparian-Connectivity is best run within the `riparian_connect` Conda environment, as defined in the `environment.yml` file.
 
