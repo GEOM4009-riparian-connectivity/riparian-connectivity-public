@@ -125,8 +125,6 @@ When the script starts it will begin by prompting you to enter a number of input
 
 ## Analysis Output
 
-### Intermediate Outputs
-
 Riparian-Connectivity will export files at each of the intermediate steps. These files can be evaluated in order to ensure that:
 
 - Appropriate inputs were provided
