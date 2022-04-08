@@ -2,45 +2,71 @@
 
 Welcome to our GEOM 4009 Riparian Connectivity project. This is a student-led project at Carleton University in Ottawa, ON.
 
-Authors: Benjamin Colbourne, John Foster, Taji Hamilton, Haley Nicholson
+Authors: Benjamin Colbourne, [John Foster](mailto:johnbfoster@cmail.carleton.ca), Taji Hamilton, Haley Nicholson
 
 ## Description
 
-Riparian-Connectivity is a Python script that runs at the command line interface. It attempts to quanitify several geometric characteristics of vegetation falling within the riparian buffer of a watershed's surface waters. It does this by:
+Riparian-Connectivity is a Python script that runs at the [command line interface](https://en.wikipedia.org/wiki/Command-line_interface). It attempts to quantify several geometric characteristics of vegetation falling within the riparian buffer of a watershed's surface waters. It does this by:
 
 1. Creating a riparian buffer around the water bodies and water courses of a watershed
 2. Calculating the Normalized Difference Vegetation Index (NDVI) of the riparian buffer
 3. Classifying the riparian buffer as vegetation and not-vegetation using an NDVI threshold
 4. Calculating descriptive statistics on the vegetation and not-vegetation features found with the riparian buffer
 
-The [Usage](#usage) section of the README contains important information about the necessary inputs, the processing that occurs, and how to access the results and intermediate data. Additionally, relevant definitions have been provided in the [Definitions](#definitions) section.
+The [Usage](#usage) section of the README contains important information about the necessary inputs, the processing that occurs, and how to access the results and intermediate data. Additionally, relevant definitions have been provided in the [Definitions](#definitions) section. Some familiarity with using command line interfaces, and geospatial file formats is expected.
 
 This script is a work in progress, as is the documentation. Please bear with us while we develop it further.
+
+## Files and Folders
+
+The riparian-connectivity package is comprised of the following:
+
+```
+riparian-connectivity/
+├─ examples/
+│  ├─ sample_input/
+│  │  ├─ ...
+│  ├─ sample_output/
+│  │  ├─ ...
+├─ notebooks/
+│  ├─ ...
+├─ .gitignore
+├─ LICENSE
+├─ README.md
+├─ environment.yml
+├─ riparian-connectivity.py
+```
+- `examples/`: A directory containing sample inputs and sample results from a 10x10km portion of the Petite River watershed in QC, Canada.
+- `notebooks/`: A directory containing two Jupyter notebooks that were used in the development of the riparian connectivity script. Note: these are still in a rough state but will be improved in the future.
+- `.gitignore`: A file used by the Git version control software to ignore certain files.
+- `LICENSE`: The GNU General Public License v3.0
+- `environment.yml`: The environment definition file.
+- `riparian-connectivity.py`: The Riparian Connectivity Python script.
 
 ## Installation
 
 ### Download
 
-Just [click here](https://github.com/GEOM4009-riparian-connectivity/riparian-connectivity-public/releases) to download a copy of the latest release from GitHub.
+[Follow this link](https://github.com/GEOM4009-riparian-connectivity/riparian-connectivity-public/releases) to download a copy of the latest release from GitHub.
 
 ### Dependencies / Conda Environment
 
-Riparian-Connectivity depends on a number of external Python modules:
+Riparian-Connectivity depends on a number of external Python packages:
 
-- folium
-- geopandas
-- joblib
-- numpy
-- matplotlib
-- pandas
-- rasterio
+- Folium
+- GeoPandas
+- Joblib
+- NumPy
+- Matplotlib
+- Pandas
+- Rasterio
 - rioxarray
-- shapely
+- Shapely
 - scikit-image
 
-To manage these dependencies, Riparian-Connectivity is best run within the `riparian_connect` Conda environment, as defined in the `environment.yml` file.
+To manage these dependencies, Riparian-Connectivity is best run within the `riparian_connect` [Conda](https://en.wikipedia.org/wiki/Conda_(package_manager)) environment, as defined in the `environment.yml` file.
 
->Note: If you're not familiar with Conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes Conda, multiple other applications, and hundreds of pre-installed modules. Miniconda on the other hand, is bare minimum installation that only includes Conda, Python, and a minimal number of useful modules. When an environment is created, Conda installs only those packages that are needed - this makes Miniconda better than Anaconda if you want a simple and lightweight installation.
+>Note: If you're not familiar with Conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes Conda, multiple other applications, and hundreds of pre-installed packages. Miniconda on the other hand, is bare minimum installation that only includes Conda, Python, and a minimal number of useful packages. When an environment is created, Conda installs only those packages that are needed - this makes Miniconda better than Anaconda if you want a simple and lightweight installation.
 
 The `riparian_connect` Conda environment can be installed at the command line by navigating to the directory you downloaded your copy of this repository to and then running the following command.
 
@@ -66,7 +92,7 @@ mamba env create -f environment.yml
 
 ### Start the Script
 
-Once you have downloaded the package and installed the `riparian_connect` Conda environment, navigate to the directory containing the script (if you're not already there) and run the following commands.
+Once you have downloaded the package and installed the `riparian_connect` Conda environment, use your command line interface to navigate to the directory containing the script (if you're not already there) and run the following commands.
 
 Activate the environment:
 
@@ -114,7 +140,7 @@ When the script starts it will begin by prompting you to enter a number of input
 
 **4. The riparian buffer width in meters**
 
-- This value will determine the width of the buffer around the water bodies and water courses.
+- This value will determine the width of the buffer around the water bodies and water courses. This should be at least as wide as the pixel resolution of the multispectral imagery.
 
 **5. The NDVI threshold**
 
@@ -125,11 +151,7 @@ When the script starts it will begin by prompting you to enter a number of input
 
 ## Analysis Output
 
-Riparian-Connectivity will export files at each of the intermediate steps. These files can be evaluated in order to ensure that:
-
-- Appropriate inputs were provided
-- The script is running as expected
-- To perform additional anaylsis on the intermediate data.
+Riparian-Connectivity will export files at each of the intermediate steps. These files can be opened in GIS software to ensure that appropriate inputs were provided; that the script is running as expected; and/or to perform additional analysis on the intermediate data.
 
 These files will be placed in a directory with the following relative path: `/results/my_watershed/`
 
@@ -155,7 +177,7 @@ If you run Riparian-Connectivity on the same watershed more than once it's a goo
 
 **Watershed area (km2)** - The total area of the watershed (km2), as represented by the user provided file.
 
-**Riparian buffer area (km2)** - The total area (km2) of the riparian buffer. It is "pixelated", in that its boundary conforms to the boundary of the pixels that fell mostly (e.g. more than 50%) within the union of the dissolved buffers around the water bodies and water courses features provided by the user.
+**Riparian buffer area (km2)** - The total area (km2) of the riparian buffer. It is "pixilated", in that its boundary conforms to the boundary of the pixels that fell mostly (e.g. more than 50%) within the union of the dissolved buffers around the water bodies and water courses features provided by the user.
 
 **Vegetation area (km2):** The total area (km2) of the pixels classified as vegetation within the riparian buffer. These pixels have an NDVI equal to or higher than the NDVI threshold provided by the user.
 
@@ -182,7 +204,7 @@ If you run Riparian-Connectivity on the same watershed more than once it's a goo
 
 **Vegetation Connectivity:** The quotient of the number of riparian buffer features divided by the number of vegetation features. `connectivity = Number of riparian buffer features / Number of vegetation features`. If there are an equal number of vegetation features as there are riparian buffer features then there are is no fragmentation of the riparian buffer and the result would be `1`. As the number of vegetation features increases, the level of connectivity decreases, lowering the connectivity value towards `0`.
 
-**Vegetation Compactness:** An attempt to quantify the the compactness of the riparian vegetation features. The long name of this could be 'normalized isoperimetric ratio'. The [Isoperimetric Ratio](https://en.wikipedia.org/wiki/Isoperimetric_ratio) is the perimeter squared / area. The minimum isoperimetric ratio is for a circle and it yields a compactness result of 4π. If we get the isoperimetric ratio of the vegetation features and the isoperimetric ratio of the buffer features then we can normalize the isoperimetric ratio of the vegetation features to that of the buffer features. In python it looks like this
+**Vegetation Compactness:** An attempt to quantify the the compactness of the riparian vegetation features. The long name of this could be 'normalized isoperimetric ratio'. The [Isoperimetric Ratio](https://en.wikipedia.org/wiki/Isoperimetric_ratio) is the perimeter squared / area. The minimum isoperimetric ratio is for a circle and it yields a compactness result of 4π. If we get the isoperimetric ratio of the vegetation features and the isoperimetric ratio of the buffer features then we can normalize the isoperimetric ratio of the vegetation features to that of the buffer features. Values closer to 1 indicate the vegetation compactness is closer to the reference compactness (i.e. full compactness). Values closer to zero indicates an increase in the vegetation shape complexity, relative to the reference (i.e. the riparian buffer). In python it looks like this:
 
 ```
 # Reference compactness i.e. riparian buffer compactness
@@ -195,15 +217,31 @@ vegetation_compactness = veg_perimeter**2 / veg_area
 compactness =  riparian_compactness / actual_compactness
 ```
 
+## Sample Data
+
+In the `examples/sample_data/` directory a small 10 km x 10 km sample dataset from the Petite Nation River watershed QC, Canada has been provided. Additionally, the results of an analysis performed on that dataset has been provided in the `examples/sample_data/`. Those sample results use a 30 m buffer width and a 0.4 NDVI threshold. The `5-report.html` file will provide a good example of what the results look like while the other files can be opened in GIS software for a more interactive view.
+
+
+## Troubleshooting / FAQ
+
+Here are a couple of issues/questions that may come up.
+
+- **Q:** Can I use imagery other than Sentinel-2?
+- **A:** At present, the script has been hardcoded to expect the Red band to be band 4 and the NIR band to be band 8 - the way Sentinel-2 images are configured. This was done to simplify the workflow for our client. We intend to enhance the script by giving the user the ability to enter the band numbers.
+
+
 ## On-going Development
 
-This project is ongoing and several more releases are planned in order to polish the functions, further develop the statistical outputs, and work through any bugs.
+This project is ongoing and several more releases are planned in order to polish the functions, continue development of the statistical outputs, and work through any bugs. This can be tracked through our GitHub repo's [issue tracker](https://github.com/GEOM4009-riparian-connectivity/riparian-connectivity-public/issues).
 
 
-### Testing Notebooks
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/GEOM4009-riparian-connectivity/riparian-connectivity-public/HEAD)
+## Acknowledgements
 
-Take a look at our exploratory test notebooks by following the Binder link and then opening the `full_workflow-test.ipynb` and `connectivity_stats-test.ipynb` notebooks files in the Jupyter Lab file explorer that will launch in your browser. It might take some time for Binder to build the environment if any changes to the repo were made recently.
+- [Associate Professor Dr. Derek Mueller](https://carleton.ca/geography/people/derek-mueller/): For his instruction, thoughtful feedback, and for fielding our many crazy questions.
+- [Meghan Jolley](https://ottawariverkeeper.ca/home/who-we-are/our-team/#p2664214): For her guidance and patience as our very first client.
+- [PySal's Tobler developers](https://pysal.org/tobler/index.html): For most of the `extract_raster_features()` function
+- The open source Python community: For developing such amazing tools, tutorials, and documentation.
+
 
 

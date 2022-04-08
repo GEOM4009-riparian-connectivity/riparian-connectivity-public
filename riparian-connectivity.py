@@ -531,12 +531,15 @@ def create_ndvi(imagery_da, riparian_buff_geom, log_filepath):
 def otsu_threshold_suggestion(ndvi_da, log_filepath):
     """
     Suggest a NDVI threshold using the Otsu thresholding method.
+
     Parameters
     ----------
     ndvi_da : RioXarray DataArray
         Normalized Difference Vegetation Index (NDVI) image of the riparian buffer.
+
     log_filepath : str
         Path to the log file.
+
     Returns
     -------
     None.
@@ -674,6 +677,8 @@ def extract_raster_features(da, log_filepath, n_jobs=-1):
     Contiguous pixels of the same value are turned into polygons with a column named
     'value' which represents the values of the source pixels. The boundary of the
     polygons matches the boundary of the pixels.
+
+    Based on: https://pysal.org/tobler/generated/tobler.dasymetric.extract_raster_features.html
 
     Parameters
     ----------
@@ -928,6 +933,7 @@ def riparian_stats(
     data = {
         "Watershed name": [watershed_name],
         "Buffer width:": [buffer_width],
+        "NDVI threshold": [ndvi_threshold],
         "Watershed area (km2)": [watershed_area],
         "Riparian buffer area (km2)": [riparian_area],
         "Vegetation area (km2)": [veg_area],
@@ -973,7 +979,33 @@ def riparian_stats(
 
 
 def report(stats_df, vegetation_gdf, not_vegetation_gdf, log_filepath):
+    """
+    Write an HTML report to the results directory.
 
+    The report contains the statistical results and an interactive folium map.
+
+    Parameters
+    ----------
+    stats_df : Pandas DataFrame
+        The DataFrame containing the riparian connectivity statistics. Displayed as an
+        HTML table in the report.
+
+    vegetation_gdf : GeoPandas GeoDataFrame
+        The GeoDataFrame containing the riparian buffer vegetation features. Displayed
+        in an interactive Folium map.
+
+    not_vegetation_gdf : GeoPandas GeoDataFrame
+        The GeoDataFrame containing the riparian buffer not-vegetation features.
+        Displayed in an interactive Folium map.
+
+    log_filepath : str
+        Path to the log file.
+
+    Returns
+    -------
+    None.
+
+    """
     vegetation_gdf["value"] = "vegetation"
     not_vegetation_gdf["value"] = "not-vegetation"
 
