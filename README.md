@@ -9,11 +9,11 @@ Authors: Benjamin Colbourne, [John Foster](mailto:johnbfoster@cmail.carleton.ca)
 Riparian-Connectivity is a Python script that runs at the [command line interface](https://en.wikipedia.org/wiki/Command-line_interface). It attempts to quantify several geometric characteristics of vegetation falling within the riparian buffer of a watershed's surface waters. It does this by:
 
 1. Creating a riparian buffer around the water bodies and water courses of a watershed
-2. Calculating the Normalized Difference Vegetation Index (NDVI) of the riparian buffer
+2. Calculating the Normalised Difference Vegetation Index (NDVI) of the buffer
 3. Classifying the riparian buffer as vegetation and not-vegetation using an NDVI threshold
 4. Calculating descriptive statistics on the vegetation and not-vegetation features found with the riparian buffer
 
-The [Usage](#usage) section of the README contains important information about the necessary inputs, the processing that occurs, and how to access the results and intermediate data. Additionally, relevant definitions have been provided in the [Definitions](#definitions) section. Some familiarity with using command line interfaces, and geospatial file formats is expected.
+The [Usage](#usage) section of the README contains important information about the necessary inputs, the processing that occurs, and how to access the results and intermediate data. Relevant definitions have been provided in the [Definitions](#definitions) section. Some familiarity with using command line interfaces, and geospatial file formats is expected.
 
 This script is a work in progress, as is the documentation. Please bear with us while we develop it further.
 
@@ -66,9 +66,9 @@ Riparian-Connectivity depends on a number of external Python packages:
 
 To manage these dependencies, Riparian-Connectivity is best run within the `riparian_connect` [Conda](https://en.wikipedia.org/wiki/Conda_(package_manager)) environment, as defined in the `environment.yml` file.
 
->Note: If you're not familiar with Conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes Conda, multiple other applications, and hundreds of pre-installed packages. Miniconda on the other hand, is bare minimum installation that only includes Conda, Python, and a minimal number of useful packages. When an environment is created, Conda installs only those packages that are needed - this makes Miniconda better than Anaconda if you want a simple and lightweight installation.
+>Note: If you're not familiar with Conda, it's a Python package and environment manager than is most commonly downloaded as part of the [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) Python distributions. Anaconda is a very large download that includes Conda, multiple other applications, and hundreds of pre-installed packages. Miniconda on the other hand, is a bare minimum installation that only includes Conda, Python, and a minimal number of useful packages. When an environment is created, Conda installs only those packages that are needed - this makes Miniconda better than Anaconda if you want a simple and lightweight installation.
 
-The `riparian_connect` Conda environment can be installed at the command line by navigating to the directory you downloaded your copy of this repository to and then running the following command.
+The `riparian_connect` Conda environment can be installed at the command line by navigating to the directory where you downloaded your copy of this repository, then running the following command.
 
 ```
 conda env create -f environment.yml
@@ -92,7 +92,7 @@ mamba env create -f environment.yml
 
 ### Start the Script
 
-Once you have downloaded the package and installed the `riparian_connect` Conda environment, use your command line interface to navigate to the directory containing the script (if you're not already there) and run the following commands.
+Once you have downloaded the package and installed the `riparian_connect` Conda environment, use your command line interface to navigate to the directory containing the script (if you are not already there) and run the following commands.
 
 Activate the environment:
 
@@ -153,21 +153,21 @@ When the script starts it will begin by prompting you to enter a number of input
 
 Riparian-Connectivity will export files at each of the intermediate steps. These files can be opened in GIS software to ensure that appropriate inputs were provided; that the script is running as expected; and/or to perform additional analysis on the intermediate data.
 
-These files will be placed in a directory with the following relative path: `/results/my_watershed/`
+These files will be placed in a directory with the following relative path: `/results/{my_watershed}/`
 
-If you run Riparian-Connectivity on the same watershed more than once it's a good idea to provide a unique name when prompted for the `Watershed name`. If the same name is repeatedly entered a number will be appended to the watershed's results folder to ensure the previous results will not be overwritten. e.g.  `/results/my_watershed_2/`
+If you run Riparian-Connectivity on the same watershed more than once it's a good idea to provide a unique name when prompted for the `Watershed name`. If the same name is repeatedly entered a number will be appended to the watershed's results folder to ensure the previous results will not be overwritten. e.g.  `/results/{my_watershed}_2/`
 
->Note: The list below contains all the intermediate file outputs for each function. They are organized by each function that produces an intermediate file; not all functions produce an intermediate file. A short description of what each output file is, and what it does has been provided. Each intermediate file can be loaded into a GIS application if one is interested in visualizing the results.
+>Note: The list below contains all the intermediate file outputs for each function. They are organised by each function that produces an intermediate file; not all functions produce an intermediate file. A short description of what each output file is, and what it does has been provided. Each intermediate file can be loaded into a GIS application if one is interested in visualising the results.
 
 - `1-riparian_buffer.gpkg` - A GeoPackage file of the union of the water bodies and water course buffers.
-- `2-riparian_buffer-NDVI.tiff` - A GeoTiff file of the Normalized Difference Vegetation Index image of the riparian buffer.
-- `3-riparian_buffer-NDVI_histogram.png` - A PNG file of the histogram of the riparian buffer NDVI values.
+- `2-riparian_buffer-NDVI.tiff` - A GeoTiff file of the Normalised Difference Vegetation Index image of the riparian buffer.
+- `3-riparian_buffer-NDVI_histogram.png` - A PNG file of the histogram which illustrates the riparian buffer NDVI values.
 - `3-riparian_buffer-vegetation.tiff` - A GeoTiff file of the classified riparian buffer where pixel values of 0 are no data, pixel values of 1 are  vegetation, and pixel values of 2 are not-vegetation.
 - `4-riparian_buffer-not_vegetation.gpkg` - A GeoPackage file of the not-vegetation pixel class, converted to a vector format.
 - `4-riparian_buffer-vegetation.gpkg` - A GeoPackage file of the vegetation pixel class, converted to a vector format.
-- `4-riparian_buffer.gpkg` - A GeoPackage file of the riparian buffer, covering the same same extent as the vegetation and not-vegetation pixels.
+- `4-riparian_buffer.gpkg` - A GeoPackage file of the riparian buffer, covering the same extent as the vegetation and not-vegetation pixels.
 - `4-statistics_table.csv` - A CSV file of the output statistics
-- `5-report.html` - An HTML report containing the a table of the statistics and an interactive Folium map of the vegetation and not-vegetation features found within the riparian buffer.
+- `5-report.html` - An HTML report containing a table of the statistics and an interactive Folium map of the vegetation and not-vegetation features found within the riparian buffer.
 
 
 
@@ -175,7 +175,7 @@ If you run Riparian-Connectivity on the same watershed more than once it's a goo
 
 ### Description of Statistics
 
-**Watershed area (km2)** - The total area of the watershed (km2), as represented by the user provided file.
+**Watershed area (km2)** - The total area of the watershed in square kilometres (km2), as represented by the user provided file.
 
 **Riparian buffer area (km2)** - The total area (km2) of the riparian buffer. It is "pixilated", in that its boundary conforms to the boundary of the pixels that fell mostly (e.g. more than 50%) within the union of the dissolved buffers around the water bodies and water courses features provided by the user.
 
@@ -198,13 +198,13 @@ If you run Riparian-Connectivity on the same watershed more than once it's a goo
 
 **Perimeter of riparian buffer (km):** The total perimeter (km) of the riparian buffer features.
 
-**Perimeter of vegetation features (km):** The total perimeter (km) of the vegetation features.
+**Perimeter of vegetation features (km):** The total perimeter in kilometres (km) of the vegetation features.
 
 **Perimeter of not-vegetation features (km):** The total perimeter of not-vegetation features.
 
-**Vegetation Connectivity:** The quotient of the number of riparian buffer features divided by the number of vegetation features. `connectivity = Number of riparian buffer features / Number of vegetation features`. If there are an equal number of vegetation features as there are riparian buffer features then there are is no fragmentation of the riparian buffer and the result would be `1`. As the number of vegetation features increases, the level of connectivity decreases, lowering the connectivity value towards `0`.
+**Vegetation Connectivity:** The quotient of the number of riparian buffer features divided by the number of vegetation features. `connectivity = Number of riparian buffer features / Number of vegetation features`. If there are an equal number of vegetation features as there are riparian buffer features then there is no fragmentation of the riparian buffer and the result would be `1`. As the number of vegetation features increases, the level of connectivity decreases, lowering the connectivity value towards `0`.
 
-**Vegetation Compactness:** An attempt to quantify the the compactness of the riparian vegetation features. The long name of this could be 'normalized isoperimetric ratio'. The [Isoperimetric Ratio](https://en.wikipedia.org/wiki/Isoperimetric_ratio) is the perimeter squared / area. The minimum isoperimetric ratio is for a circle and it yields a compactness result of 4π. If we get the isoperimetric ratio of the vegetation features and the isoperimetric ratio of the buffer features then we can normalize the isoperimetric ratio of the vegetation features to that of the buffer features. Values closer to 1 indicate the vegetation compactness is closer to the reference compactness (i.e. full compactness). Values closer to zero indicates an increase in the vegetation shape complexity, relative to the reference (i.e. the riparian buffer). In python it looks like this:
+**Vegetation Compactness:** An attempt to quantify the compactness of the riparian vegetation features. The long name of this could be 'normalized isoperimetric ratio'. The [Isoperimetric Ratio](https://en.wikipedia.org/wiki/Isoperimetric_ratio) is the perimeter squared / area. The minimum isoperimetric ratio is for a circle and it yields a compactness result of 4π. If we get the isoperimetric ratio of the vegetation features and the isoperimetric ratio of the buffer features then we can normalize the isoperimetric ratio of the vegetation features to that of the buffer features. Values closer to 1 indicate the vegetation compactness is closer to the reference compactness (i.e. full compactness). Values closer to zero indicate an increase in the vegetation shape complexity, relative to the reference (i.e. the riparian buffer). In python it looks like this:
 
 ```
 # Reference compactness i.e. riparian buffer compactness
