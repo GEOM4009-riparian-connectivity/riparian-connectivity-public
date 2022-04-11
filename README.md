@@ -28,6 +28,8 @@ riparian-connectivity/
 │  │  ├─ ...
 │  ├─ sample_output/
 │  │  ├─ ...
+├─ flowchart/
+│  │  ├─ 
 ├─ notebooks/
 │  ├─ ...
 ├─ .gitignore
@@ -37,6 +39,7 @@ riparian-connectivity/
 ├─ riparian-connectivity.py
 ```
 - `examples/`: A directory containing sample inputs and sample results from a 10x10km portion of the Petite River watershed in QC, Canada.
+- `flowchart/`: A flowchart representing the analysis workflow used by the script
 - `notebooks/`: A directory containing two Jupyter notebooks that were used in the development of the riparian connectivity script. Note: these are still in a rough state but will be improved in the future.
 - `.gitignore`: A file used by the Git version control software to ignore certain files.
 - `LICENSE`: The GNU General Public License v3.0
