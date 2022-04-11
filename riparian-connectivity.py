@@ -432,7 +432,7 @@ def vector_operations(
     # Clip to watershed boundary
     water_buff_geom = water_buff_geom.clip(mask=watershed_geom)
 
-    # Get difference of buffered water bodies and water bodies to get the outer buffer
+    # Get difference of unioned buffers and water bodies to get the outer buffer
     riparian_buff_geom = water_buff_geom.difference(waterbodies_geom)
 
     print("done\n")
